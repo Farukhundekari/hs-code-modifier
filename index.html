@@ -1,103 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HS Code Generator</title>
-    <style>
-      /* Page setup */
-      body {
-        font-family: "Poppins", sans-serif;
-        background: #f4f6f8;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
+const submit = document.getElementById("submit");
+const input = document.getElementById("input");
+const Hscode = document.getElementById("Hscode");
+const copyBtn = document.getElementById("copyBtn");
+const counterDisplay = document.getElementById("counter");
+const resetBtn = document.getElementById("reset");
+const decrementBtn = document.getElementById("decrement");
+const comment = document.getElementById("comment");
+const comments = document.getElementById("comments");
 
-      /* Main container */
-      .container {
-        width: 50%;
-        background: #fff;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
+// Counter logic
+function counter() {
+  let num = 0;
+  return {
+    increment() {
+      num++;
+      return num;
+    },
+    decrement() {
+      num = Math.max(0, num - 1);
+      return num;
+    },
+    reset() {
+      num = 0;
+      return num;
+    },
+    value() {
+      return num;
+    },
+  };
+}
 
-      h2 {
-        color: #333;
-        margin-bottom: 1rem;
-      }
+const counts = counter();
 
-      label {
-        display: block;
-        font-weight: 600;
-        color: #555;
-        margin-bottom: 0.5rem;
-        text-align: left;
-      }
+submit.addEventListener("click", function () {
+  const result = input.value.trim().replace(/\./g, "");
+  Hscode.textContent = result || "No code entered";
+  input.value = "";
+  Hscode.style.color = "#007bff";
+  Hscode.style.transform = "scale(1.1)";
+  setTimeout(() => (Hscode.style.transform = "scale(1)"), 400);
+});
 
-      input {
-        width: 100%;
-        padding: 0.9rem;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        outline: none;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        font-weight: 600;
-        transition: border 0.3s ease;
-      }
+copyBtn.addEventListener("click", function () {
+  navigator.clipboard
+    .writeText(Hscode.textContent)
+    .then(() => {
+      const val = counts.increment();
+      counterDisplay.textContent = `Copied: ${val} times`;
+      counterDisplay.style.color = "#28a745";
+      setTimeout(() => (counterDisplay.style.color = "#007bff"), 800);
+    })
+    .catch((err) => console.error("Failed to copy:", err));
+});
 
-      input:focus {
-        border-color: #007bff;
-      }
+resetBtn.addEventListener("click", () => {
+  counts.reset();
+  counterDisplay.textContent = "Copied: 0 times";
+});
 
-      button {
-        background: #007bff;
-        color: #fff;
-        border: none;
-        padding: 0.8rem 1.5rem;
-        margin: 0.5rem;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1rem;
-        transition: background 0.3s ease;
-      }
+decrementBtn.addEventListener("click", () => {
+  const val = counts.decrement();
+  counterDisplay.textContent = `Copied: ${val} times`;
+});
 
-      button:hover {
-        background: #0056b3;
-      }
-
-      #Hscode {
-        font-size: 1.4rem;
-        color: #222;
-        margin-top: 1.5rem;
-        background: #f1f1f1;
-        padding: 0.8rem;
-        border-radius: 8px;
-        word-wrap: break-word;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="container">
-      <h2>HS Code Modifier</h2>
-
-      <label for="input">Enter HS Code:</label>
-      <input id="input" type="number" placeholder="Enter HS code..." />
-
-      <button id="submit">Generate</button>
-
-      <h3 id="Hscode">872.837.38.39.8</h3>
-
-      <button id="copyBtn">Copy Content</button>
-    </div>
-
-    <script src="index.js"></script>
-  </body>
-</html>
+comment.addEventListener("click", function () {
+  const comments = "SI AUTO INDEX";
+  navigator.clipboard.writeText(comments).catch((err) => console.log(err));
+});
