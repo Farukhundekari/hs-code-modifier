@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HS Code Modifier</title>
     <style>
-      /* Page Setup */
       body {
         font-family: "Poppins", sans-serif;
-        background: linear-gradient(135deg, #74b9ff, #a29bfe);
         margin: 0;
         padding: 0;
         display: flex;
@@ -17,11 +15,10 @@
         height: 100vh;
       }
 
-      /* Main Container */
       .container {
-        width: 500px;
+        width: 420px; /* smaller & compact */
         background: #ffffff;
-        padding: 2rem;
+        padding: 1.5rem 2rem;
         border-radius: 20px;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         text-align: center;
@@ -42,25 +39,25 @@
       h2 {
         color: #333;
         margin-bottom: 1rem;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
       }
 
       label {
         display: block;
         font-weight: 600;
         color: #444;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
         text-align: left;
       }
 
       input {
         width: 100%;
-        padding: 0.9rem;
+        padding: 0.8rem;
         border: 1px solid #ccc;
         border-radius: 8px;
         outline: none;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
         font-weight: 500;
         transition: all 0.3s ease;
       }
@@ -70,16 +67,15 @@
         box-shadow: 0 0 8px rgba(9, 132, 227, 0.3);
       }
 
-      /* Buttons */
       button {
         background: #0984e3;
         color: #fff;
         border: none;
-        padding: 0.8rem 1.5rem;
-        margin: 0.4rem;
+        padding: 0.6rem 1.2rem;
+        margin: 0.3rem;
         border-radius: 8px;
         cursor: pointer;
-        font-size: 1rem;
+        font-size: 0.95rem;
         transition: all 0.2s ease;
       }
 
@@ -88,31 +84,42 @@
         transform: translateY(-2px);
       }
 
-      /* Click animation */
       button:active {
         transform: scale(0.96);
         background: #065b9a;
       }
 
       #Hscode {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         color: #222;
-        margin-top: 1.5rem;
+        margin-top: 1rem;
         background: #f1f3f6;
-        padding: 0.8rem;
+        padding: 0.6rem;
         border-radius: 10px;
         word-wrap: break-word;
         box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
       }
 
       #counter {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: #555;
         margin-top: 1rem;
         background: #ecf0f1;
-        padding: 0.6rem;
+        padding: 0.5rem;
         font-weight: 900;
         border-radius: 8px;
+      }
+
+      /* Simple layout balance */
+      .section {
+        margin-bottom: 1.2rem;
+      }
+
+      .button-group {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.4rem;
       }
     </style>
   </head>
@@ -121,22 +128,67 @@
     <div class="container">
       <h2>HS Code Modifier</h2>
 
-      <label for="input">Enter HS Code:</label>
-      <input id="input" type="number" placeholder="Enter HS code..." />
+      <!-- 🔹 HS CODE SECTION -->
+      <div class="section">
+        <label for="input">HS Code:</label>
+        <input id="input" type="number" placeholder="Enter HS code..." />
+        <div class="button-group">
+          <button id="submit">Generate</button>
+          <button id="comment">Comment</button>
+        </div>
+      </div>
 
-      <button id="submit">Generate</button>
-      <button id="comment">Comment</button>
-
-      <div>
-        <h3 id="Hscode">Add HTS CODE</h3>
+      <!-- 🔹 DISPLAY SECTION -->
+      <div class="section">
+        <h5 id="Hscode">Add HTS CODE</h5>
         <button id="copyBtn">Copy Content</button>
       </div>
 
-      <div id="counter">Copied: 0 times</div>
+      <!-- 🔹 ENTRY SECTION -->
+      <div class="section">
+        <label for="entry-input">Entry No:</label>
+        <div style="display: flex; gap: 0.5rem; align-items: center">
+          <input
+            id="entry-input"
+            type="number"
+            placeholder="Enter Entry No..."
+            style="flex: 1"
+          />
+          <button id="proc-comment">7501</button>
+        </div>
+      </div>
 
-      <div>
-        <button id="reset">Reset</button>
-        <button id="decrement">Decrement</button>
+      <!-- 🔹 COUNTER SECTION -->
+      <div class="section">
+        <div id="counter">Copied: 0 times</div>
+
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+          "
+        >
+          <label
+            for="editInput"
+            style="font-weight: 600; color: #444; margin: 0"
+            >Edit:</label
+          >
+          <input
+            id="editInput"
+            type="number"
+            placeholder="Count"
+            style="width: 80px; text-align: center"
+          />
+          <button id="edit">Set</button>
+        </div>
+
+        <div class="button-group" style="margin-top: 0.8rem">
+          <button id="reset">Reset</button>
+          <button id="decrement">Decrement</button>
+        </div>
       </div>
     </div>
 
